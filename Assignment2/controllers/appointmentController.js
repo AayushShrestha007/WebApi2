@@ -1,6 +1,7 @@
 const appointmentModel = require("../models/appointmentModels");
 
 const bookAppointment = async (req, res) => {
+  
   const { date, time } = req.body;
 
   if (!date || !time) {

@@ -40,9 +40,59 @@ const Register = () => {
     }
 
 
+
+    //validation
+    var validate = () => {
+        var isValid = true;
+
+        //validate the firstName
+        if (firstName.trim() === "") {
+            setFirstNameError("First name is required")
+            isValid = false;
+        }
+
+        if (lastName.trim() === "") {
+            setLastNameError("last name is required")
+            isValid = false;
+        }
+
+        if (email.trim() === "") {
+            setEmailError("Email is required")
+            isValid = false;
+        }
+
+        if (password.trim() === "") {
+            setPasswordError("Password is required")
+            isValid = false;
+        }
+
+        if (confirmPassword.trim() === "") {
+            setConfirmPasswordError("Confirm Password is required")
+            isValid = false;
+        }
+
+        if (confirmPassword.trim() !== password.trim()) {
+            setConfirmPasswordError("Password and confirmation password don't match")
+            isValid = false;
+        }
+
+        return isValid;
+
+
+    }
+
     //submit butoton function
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        //call the validator
+        var isValidated = validate();
+        if (!isValidated) {
+            return
+
+        }
+
+
         console.log(firstName, lastName, email, password, confirmPassword)
     }
 
@@ -59,29 +109,45 @@ const Register = () => {
                     <input onChange={handleFirstName} type='text' className='form-control mt' placeholder='Enter your first name'>
                     </input>
 
+                    {
+                        firstNameError && <p className='text-danger'>{firstNameError}</p>
+                    }
+
                     <label className='mt-4'>
                         Last Name: {lastName}
                     </label>
                     <input onChange={handleLastName} type='text' className='form-control' placeholder='Enter your last name'>
                     </input>
+                    {
+                        lastNameError && <p className='text-danger'>{lastNameError}</p>
+                    }
 
                     <label className='mt-4'>
                         Email: {email}
                     </label>
                     <input onChange={handleEmail} type='text' className='form-control' placeholder='Enter your email'>
                     </input>
+                    {
+                        emailError && <p className='text-danger'>{emailError}</p>
+                    }
 
                     <label className='mt-4'>
                         Password: {password}
                     </label>
                     <input onChange={handlePassword} type='text' className='form-control' placeholder='Enter your password'>
                     </input>
+                    {
+                        passwordError && <p className='text-danger'>{passwordError}</p>
+                    }
 
                     <label className='mt-4'>
                         Confirm password: {confirmPassword}
                     </label>
                     <input onChange={handleConfirmPassword} type='text' className='form-control mb-4' placeholder='Confirm your password'>
                     </input>
+                    {
+                        confirmPasswordError && <p className='text-danger'>{confirmPasswordError}</p>
+                    }
 
 
                     <button onClick={handleSubmit} className='btn btn-dark'> Create an account</button>

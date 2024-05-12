@@ -21,7 +21,7 @@ app.get('/test', (req, res) => {
     res.send("Test api is working");
 })
 
-//configuring routes of user 
+//configuring routes 
 app.use('/api/', require('./routes/userRoutes'));
 app.use('/api/', require('./routes/reservationRoutes'));
 app.use('/api/', require('./routes/appointmentRoutes'));

@@ -55,12 +55,6 @@ const createUser = async (req, res) => {
 }
 
 
-const makeReservation = async (req, res) => {
-    
-
-}
-
-
 //Exporting the function 
 module.exports = {
     createUser,

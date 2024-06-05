@@ -1,9 +1,31 @@
-import React, { useState, userParams } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getSingleProductApi } from '../../../apis/Api';
 
 const UpdateProduct = () => {
     // get id from url
-    const { id } = userParams()
+    const { id } = useParams()
+
     // get product information (Backend)
+    useEffect(() => {
+        getSingleProductApi(id).then((res) => {
+            console.log(res.data.product.productName)
+
+            setProductName(res.data.product.productName)
+            setProductPrice(res.data.product.productPrice)
+            setProductCategory(res.data.product.productCategory)
+            setProductDescription(res.data.product.productDescription)
+            setOldImage(res.data.product.productImage)
+
+
+
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+
+    );
+
     // fill all the info in each fields
 
     // make a use state
@@ -37,13 +59,13 @@ const UpdateProduct = () => {
                 <div className='d-flex gap-3'>
                     <form action="">
                         <label htmlFor="">Product Name</label>
-                        <input onChange={(e) => setProductName(e.target.value)} className='form-control' type="text" placeholder='Enter your product name' />
+                        <input value={productName} onChange={(e) => setProductName(e.target.value)} className='form-control' type="text" placeholder='Enter your product name' />
 
                         <label className='mt-2' htmlFor="">Product Price</label>
-                        <input onChange={(e) => setProductPrice(e.target.value)} className='form-control' type="number" placeholder='Enter your product name' />
+                        <input value={productPrice} onChange={(e) => setProductPrice(e.target.value)} className='form-control' type="number" placeholder='Enter your product name' />
 
                         <label className='mt-2'>Choose category</label>
-                        <select onChange={(e) => setProductCategory(e.target.value)} className='form-control'>
+                        <select value={productCategory} onChange={(e) => setProductCategory(e.target.value)} className='form-control'>
                             <option value="plants">Plants</option>
                             <option value="electronics">Electronics</option>
                             <option value="gadgets">Gadgets</option>
@@ -51,7 +73,7 @@ const UpdateProduct = () => {
                         </select>
 
                         <label className='mt-2'>Enter description</label>
-                        <textarea onChange={(e) => setProductDescription(e.target.value)} className='form-control'></textarea>
+                        <textarea value={productDescription} onChange={(e) => setProductDescription(e.target.value)} className='form-control'></textarea>
 
                         <label className='mt-2'>Choose product Image</label>
                         <input onChange={handleImage} type="file" className='form-control' />

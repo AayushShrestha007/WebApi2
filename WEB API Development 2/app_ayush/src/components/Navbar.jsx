@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
     return (
         <div className='container mt-2'>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -20,6 +21,36 @@ const Navbar = () => {
                                 <a className="nav-link" href="#">Link</a>
                             </li>
                         </ul>
+
+                        <form className="d-flex" role="search">
+                            {
+                                user ? (
+                                    <>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Dropdown button,
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                                <li><a class="dropdown-item" href="#">Setting</a></li>
+                                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                                            </ul>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link to={'/register'} className="btn btn-primary" type="submit"> Register</Link>
+                                        <Link to={'/login'} className="btn btn-primary" type="submit"> Login</Link>
+                                    </>
+                                )
+                            }
+
+
+
+                        </form>
+
+
+
                         <form className="d-flex" role="search">
                             <Link to={'/register'} className="btn btn-primary" type="submit">Register</Link>
                             <Link to={'/login'} className="btn btn-success ms-2" type="submit">Login</Link>
